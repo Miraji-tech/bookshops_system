@@ -1,0 +1,169 @@
+{% extends 'users/base.html' %}
+
+        {% block title%}
+         Online_Bookshops | Dashboard
+        {% endblock title %}
+
+{% load static %}
+
+{% block content %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Info boxes -->
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-school"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Bookshops Available</span>
+                <h3 class="info-box-number">
+                  {{ shop_count }}
+                </h3>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-book"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Books in bookshops</span>
+                <h3 class="info-box-number">{{ book_count }}</h3>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+
+          <!-- fix for small devices only -->
+          <div class="clearfix hidden-md-up"></div>
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Number of Categories</span>
+                <h3 class="info-box-number">{{ category_count }}</h3>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-users"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Users</span>
+                <h3 class="info-box-number">{{ no_user }}</h3>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+
+
+            <!-- TABLE: LATEST ORDERS -->
+            <div class="card">
+              <div class="card-header border-transparent">
+                <h3 class="card-title"><i class="text-info">Currently Books Available</i></h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table m-0">
+                    <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Cover Book</th>
+                      <th>Book name</th>
+                      <th>Author</th>
+                      <th>Category</th>
+                      <th>Bookshop</th>
+                      <th>Item</th>
+                      <th>Price(Tshs)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for b in books %}
+                    <tr>
+                      <td>{{b.id}}</td>
+                      {% if b.book_image %}
+                      <td>
+                        <img src="{{ b.book_image.url }}" alt="Cover Book" width="61px" height="82px">
+                      </td>
+                      {% endif %}
+                      <td>{{b.book_name}}</td>
+                      <td>{{b.author}}</td>
+                      <td><a href="{% url 'show-category' b.book_category_id %}"> {{b.book_category}}</a></td>
+                      <td><a href="{% url 'show-bookshop' b.bookshop_id %}"> {{b.bookshop}}</a></td>
+                      <td>{{b.item}}</td>
+                      <td>{{b.price}}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.table-responsive -->
+              </div>
+              <!-- /.card-body -->
+              {% if user.is_superuser and user.is_staff %}
+              <div class="card-footer clearfix">
+                <a href="{% url 'books-list' %}" class="btn btn-sm btn-secondary float-right">View All Books</a>
+              </div>
+              {% endif %}
+              {% if not user.is_staff and not user.is_superuser %}
+              <div class="card-footer clearfix">
+                <a href="{% url 'user-books-list' %}" class="btn btn-sm btn-secondary float-right">View All Books</a>
+              </div>
+              {% endif %}
+              <!-- /.card-footer -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+{% endblock %}

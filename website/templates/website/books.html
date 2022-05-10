@@ -1,0 +1,142 @@
+{% extends 'website/base.html' %}
+
+        {% block title %}
+           Books | Online Books Finding website
+        {% endblock title %}
+
+{% load static %}
+
+{% block content %}
+
+        <!-- Start: Banner -->
+        <section id="banner">
+            <div class="container">
+                <div class="banner-header">
+                    <h2>Books Available</h2>
+                    <span class="underline center"></span>
+                </div>
+                <div class="breadcrumb">
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li>Books</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!-- End: Banner -->
+
+                                <!-- Start: Search Section -->
+                                <section id="books-list">
+                                    <div class="container">
+                                        <div class="row pull-right">
+                                            <form action="{% url 'search_books' %}" method="get">{% csrf_token %}
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <input class="form-control" placeholder="Search by Keyword" id="keywords" name="q" type="text">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-primary">Search</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                
+                                <div class="table-tabs" id="responsiveTabs">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><b class="arrow-up"></b><a data-toggle="tab" href="#sectionA">Books</a></li>
+                                        <li><b class="arrow-up"></b><a data-toggle="tab" href="#sectionB">Bookshops</a></li>
+                                        <li><b class="arrow-up"></b><a data-toggle="tab" href="#sectionC">Categories</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div id="sectionA" class="tab-pane fade in active">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                          <th>ID</th>
+                                                          <th>Cover Book</th>
+                                                          <th>Book name</th>
+                                                          <th>Author</th>
+                                                          <th>Category</th>
+                                                          <th>Bookshop</th>
+                                                          <th>Total Copies</th>
+                                                          <th>Price(Tshs)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                {% for book in books %}
+                                                    <tr>
+                                                          <td>{{book.id}}</td>
+                                                          {% if book.book_image %}
+                                                          <td>
+                                                            <img src="{{ book.book_image.url }}" alt="Cover Book" width="61px" height="82px">
+                                                          </td>
+                                                          {% endif %}
+                                                          <td>{{book.book_name}}</td>
+                                                          <td>{{book.author}}</td>
+                                                        <td><a href="{% url 'Display_category' book.book_category_id %}">{{book.book_category}}</a></td>
+                                                        <td><a href="{% url 'View_bookshop' book.bookshop_id %}">{{book.bookshop}}</a></td>
+                                                        {% if book.item == 0 %}
+                                                          <td><span class="text-danger">Item Out of Stock</span></td>
+                                                          {% else %}
+                                                          <td>{{book.item}}</td>
+                                                          {% endif %}
+                                                          <td>{{book.price}}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div id="sectionB" class="tab-pane fade in">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                  <th>Bookshop ID</th>
+                                                  <th>Bookshop name</th>
+                                                  <th>Location</th>
+                            <!--                      <th>Owner</th>-->
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                {% for shop in book_shop %}
+                                                <tr>
+                                                  <td>{{shop.id}}</td>
+                                                  <td><a href="{% url 'View_bookshop' shop.id %}">{{shop.book_shop_name}}</a></td>
+                                                  <td>{{shop.location}}</td>
+                            <!--                      <td>{{shop.book_shop_owner_id}}</td>-->
+                                                </tr>
+                                                 {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div id="sectionC" class="tab-pane fade in">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                  <th>Category ID</th>
+                                                  <th>Category Name</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                {% for c in category %}
+                                                <tr>
+                                                  <td>{{c.id}}</td>
+                                                  <td><a href="{% url 'Display_category' c.id %}">{{c.category_name}}</a></td>
+                                                </tr>
+
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </section>
+        <!-- End: Search Section -->
+
+{% endblock %}

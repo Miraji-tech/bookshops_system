@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <!-- Title -->
+            <title>
+                {% block title %}
+    
+                {% endblock title %}
+            </title>
+
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="template">
+
+    	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700itali" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:400,900,800,700,500,200,100,600" rel="stylesheet">
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="{% static 'website/bootstrap/bootstrap.css' %}">
+	<link rel="stylesheet" href="{% static 'website/css/library.css' %}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+	<!-- JavaScripts -->
+	<script src="{% static 'website/js/jquery-1.10.2.min.js' %}"></script>
+	<script src="{% static 'website/js/jquery-migrate-1.2.1.min.js' %}"></script>
+
+    </head>
+
+    <body>
+        <div class="responsive_menu">
+            <ul class="main_menu">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'books' %}">Books</a></li>
+                <li><a href="{% url 'books' %}">Services</a></li>
+                <li><a href="{% url 'books' %}">Contact</a></li>
+                <li><a href="{% url 'login_url' %}">Staff login</a></li>
+            </ul> <!-- /.main_menu -->
+        </div> <!-- /.responsive_menu -->
+    
+        <header class="site-header clearfix">
+            <div class="container">
+    
+                <div class="row">
+    
+                    <div class="col-md-12">
+    
+                        <div class="pull-left logo">
+                            <a href="{% url 'home' %}">
+                                <!-- <img src="images/logo.png" alt="Logo"> -->
+                                <h4>ONLINE LIBRARY</h4>
+                            </a>
+                        </div>	<!-- /.logo -->
+    
+                        <div class="main-navigation pull-right">
+    
+                            <nav class="main-nav visible-md visible-lg">
+                                <ul class="sf-menu">
+                                    <li class="active"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                                    <li><a class="nav-link" href="{% url 'books' %}">Books</a></li>
+                                    <li><a class="nav-link" href="{% url 'home' %}">Services</a></li>
+                                    <li><a class="nav-link" href="{% url 'books' %}">Contact</a></li>
+                                    <li><a href="{% url 'login_url' %}">Staff login</a></li>
+                                </ul> <!-- /.sf-menu -->
+                            </nav> <!-- /.main-nav -->
+    
+                            <!-- This one in here is responsive menu for tablet and mobiles -->
+                            <div class="responsive-navigation visible-sm visible-xs">
+                                <a href="#mobile-menu" class="menu-toggle-btn">
+                                    <i class="fa fa-bars"></i>
+                                </a>
+                            </div> <!-- /responsive_navigation -->
+    
+                        </div> <!-- /.main-navigation -->
+    
+                    </div> <!-- /.col-md-12 -->
+    
+                </div> <!-- /.row -->
+            </div> <!-- /.container -->
+        </header> <!-- /.site-header -->
+
+    {% block content %}
+
+
+    {% endblock %}
+
+
+	<footer class="site-footer fixed">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<p class="copyright-text">Online Library &copy; 2022
+				</div> <!-- /.col-md-12 -->
+				</div>
+		</div> <!-- /.container -->
+	</footer> <!-- /.site-footer -->
+
+	<!-- Scripts -->
+	<script src="{% static 'website/js/min/plugins.min.js' %}"></script>
+	<script src="{% static 'website/js/min/custom-plugins.min.js' %}"></script>
+
+    </body>
+</html>

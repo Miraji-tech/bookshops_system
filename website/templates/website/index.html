@@ -1,0 +1,31 @@
+{% extends 'website/base.html' %}
+
+        {% block title %}
+           Home | Online Books Finding website
+        {% endblock title %}
+
+{% load static %}
+
+{% block content %}
+
+
+	<section id="homepage" class="parallax first-widget">
+		    <div class="container home-content">
+				<div class="desc">	
+					<h3><strong>WELCOME TO ONLINE LIBRARY</strong></h3>
+					<p>You can search a book by entering a keywords</p>
+				</div>
+		        <div class="row">
+                          <form action="{% url 'search_books' %}" class="banner-filter-box" method="get">{% csrf_token %}
+							<div class="col-md-10">
+                                   <input class="form-control" placeholder="Search a Book" id="keywords" name="q" type="text">
+								</div>
+							<div class="col-md-2">
+								<button type="submit" class="btn btn-primary">Search</button>
+								</div>
+                            </form>
+                    </div>
+		    </div> <!-- /.container -->
+	</section> <!-- /#home -->
+
+{% endblock content %}

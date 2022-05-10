@@ -1,0 +1,83 @@
+{% extends 'users/base.html' %}
+
+{% load static %}
+
+        {% block title%}
+         Online_Bookshops | Books_in_Bookshop
+        {% endblock title %}
+
+{% block content %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-12">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+              <li class="breadcrumb-item active">{{ book_shop.book_shop_name }} </li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+
+    <!-- Main content -->
+    <section class="content">
+            <div class="card">
+              <div class="card-header border-transparent">
+                <h3 class="card-title text-green"><i> Welcome to {{ book_shop.book_shop_name }} </i></h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table m-0">
+                    <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Cover Book</th>
+                      <th>Book name</th>
+                      <th>Author</th>
+                      <th>Category</th>
+                      <th>Item</th>
+                      <th>Price(Tshs)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for book in books %}
+                    <tr>
+                      <td>{{book.id}}</td>
+                       {% if book.book_image %}
+                      <td>
+                        <img src="{{ book.book_image.url }}" alt="Cover Book" width="61px" height="82px">
+                      </td>
+                      {% endif %}
+                      <td>{{book.book_name}}</td>
+                      <td>{{book.author}}</td>
+                      <td>{{book.book_category}}</td>
+                      <td>{{book.item}}</td>
+                      <td>{{book.price}}</td>
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.table-responsive -->
+              </div>
+            </div>
+
+
+    </section>
+
+  </div>
+
+{% endblock %}

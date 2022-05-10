@@ -1,0 +1,116 @@
+{% extends 'website/base.html' %}
+
+        {% block title %}
+           Books | Online Books Finding website
+        {% endblock title %}
+
+{% load static %}
+
+{% block content %}
+
+        <!-- Start: Banner -->
+        <section id="banner">
+            <div class="container">
+                <div class="banner-header">
+                    <h2>Books Available in category {{ category.category_name }}</h2>
+                    <span class="underline center"></span>
+                </div>
+                <div class="breadcrumb">
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li>{{ category.category_name }}</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!-- End: Banner -->
+
+                                <!-- Start: Search Section -->
+                                <section id="books-list">
+                                    <div class="container">
+                                        <div class="row pull-right">
+                                            <form action="{% url 'search_books' %}" method="get">{% csrf_token %}
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <input class="form-control" placeholder="Search by Keyword" id="keywords" name="q" type="text">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-primary">Search</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        
+
+                                <div class="table-tabs" id="responsiveTabs">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><b class="arrow-up"></b><a data-toggle="tab" href="#sectionA">{{ category.category_name }}</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div id="sectionA" class="tab-pane fade in active">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                          <th>ID</th>
+                                                        <th>Cover Book</th>
+                                                          <th>Book name</th>
+                                                          <th>Author</th>
+                                                          <th>Bookshop</th>
+                                                          <th>Total Copies</th>
+                                                          <th>Price(Tshs)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                {% for book in books %}
+                                                    <tr>
+                                                          <td>{{book.id}}</td>
+                                                          {% if book.book_image %}
+                                                          <td>
+                                                            <img src="{{ book.book_image.url }}" alt="Cover Book" width="61px" height="82px">
+                                                          </td>
+                                                          {% endif %}
+                                                          <td>{{book.book_name}}</td>
+                                                          <td>{{book.author}}</td>
+                                                        <td><a href="{% url 'View_bookshop' book.bookshop_id %}">{{book.bookshop}}</a></td>
+                                                       {% if book.item == 0 %}
+                                                          <td><span class="text-danger">Item Out of Stock</span></td>
+                                                          {% else %}
+                                                          <td>{{book.item}}</td>
+                                                        {% endif %}
+                                                          <td>{{book.price}}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div id="sectionB" class="tab-pane fade in">
+                                            <h5>Lorem Ipsum Dolor</h5>
+                                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.</p>
+                                        </div>
+                                        <div id="sectionC" class="tab-pane fade in">
+                                            <h5>Lorem Ipsum Dolor</h5>
+                                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.</p>
+                                        </div>
+                                        <div id="sectionD" class="tab-pane fade in">
+                                            <h5>Lorem Ipsum Dolor</h5>
+                                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.</p>
+                                        </div>                                                    
+                                        <div id="sectionE" class="tab-pane fade in">
+                                            <h5>Lorem Ipsum Dolor</h5>
+                                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.</p>
+                                        </div>                                                    
+                                        <div id="sectionF" class="tab-pane fade in">
+                                            <h5>Lorem Ipsum Dolor</h5>
+                                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                                
+
+{% endblock %}
